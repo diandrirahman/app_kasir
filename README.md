@@ -1,4 +1,7 @@
-Framework CodeIgniter 3
+### Framework CodeIgniter 3
+
+### database
+  * db_appkasir.sql
 ### Akun Admin : 
   * username : admin 
   * password : Bismillah 
