@@ -85,7 +85,7 @@
             },
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
-            "searching": true,
+            "searching": false,
             "autoWidth": true,
             // "scrollY": 455,
             "scrollX": true,
@@ -139,105 +139,8 @@
         table.columns.adjust().draw();
     });
 
-    $('#btn_input').click(function(e) {
-        e.preventDefault();
-        $('#frmInput').modal('show');
-        $('#title_input_modal').text('Tambah Data');
-    });
-
     $('#filter_btn').click(function() { //button filter event click
         table.ajax.reload(); //just reload table
         scrollWin();
     });
-
-    function edit_barang(kode_barang) {
-        $.ajax({
-            url: '<?php echo site_url('C_barang/ajax_edit'); ?>/' + kode_barang,
-            type: 'get',
-            dataType: 'json',
-            success: function(data) {
-                $('#frmEdit').modal('show');
-                $('#title_edit_modal').text('Edit Data Barang');
-                $('#txt_edit_id_bar').val(data.id);
-                $('#txt_edit_kode_bar_old').val(data.kode_barang);
-                $('#txt_edit_kode_bar').val(data.kode_barang);
-                $('#txt_edit_nama_bar').val(data.nama_barang);
-                $('#txt_edit_harga').val(data.harga);
-            }
-        });
-    }
-
-    function delete_barang(id) {
-        var data_id = id;
-        var urls = '<?php echo site_url("C_barang/delete_permanen/"); ?>';
-        swal.fire({
-            title: "Apakah Kamu Yakin?",
-            text: "Apakah Kamu Yakin Hapus Data ini?",
-            icon: "warning",
-            buttons: {
-                cancel: {
-                    text: "Batal",
-                    value: null,
-                    visible: true,
-                    className: "btn btn-danger",
-                    closeModal: true
-                },
-                confirm: {
-                    text: "Hapus",
-                    value: true,
-                    visible: true,
-                    className: "btn btn-success",
-                    closeModal: false
-                }
-            },
-            dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
-                $.ajax({
-                    type: 'POST',
-                    url: urls + data_id,
-                    dataType: "JSON",
-                    success: function(data) {
-                        if (data.is_error === true) {
-                            swal.fire({
-                                title: "Oopps",
-                                text: data.error_message,
-                                icon: "error",
-                                timer: 2000,
-                                buttons: false,
-                            });
-                        } else {
-                            swal.fire({
-                                title: "Success",
-                                text: "Data Berhasil Dihapus secara permanen.",
-                                icon: "success",
-                                timer: 1500,
-                                buttons: false,
-                            });
-                        }
-                        // Reload DataTable
-                        table.ajax.reload(null, false); // Tetap di halaman yang sama
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        swal.fire({
-                            title: "Gagal",
-                            text: "Terjadi kesalahan saat menghapus data.",
-                            icon: "error",
-                            timer: 2000,
-                            buttons: false,
-                        });
-                        console.error("AJAX Error: ", textStatus, errorThrown);
-                    }
-                });
-            } else {
-                swal.fire({
-                    title: "Dibatalkan",
-                    text: "Data Kamu masih Aman!",
-                    icon: "info",
-                    timer: 1500,
-                    buttons: false,
-                });
-            }
-        });
-    }
 </script>
