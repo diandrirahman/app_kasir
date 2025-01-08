@@ -4,8 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_user extends CI_Model
 {
     var $table = 'db_appkasir.tb_user';
-    var $column_order = array(null, 'a.kode_barang', 'a.nama_barang', 'a.harga', null);
-    var $column_search = array('a.kode_barang', 'a.nama_barang');
+    var $column_order = array(null, 'a.username', 'a.nama', 'b.level_name', null);
+    var $column_search = array('a.username', 'a.nama');
     var $order = array('a.ID' => 'asc');
 
     public function __construct()
