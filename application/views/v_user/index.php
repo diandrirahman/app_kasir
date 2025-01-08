@@ -154,8 +154,8 @@
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
+        }).then((result) => {
+            if (result.isConfirmed) { // Mengganti 'willDelete' menjadi 'result.isConfirmed'
                 $.ajax({
                     type: 'POST',
                     url: urls + data_id,
