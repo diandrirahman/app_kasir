@@ -143,25 +143,14 @@
             title: "Apakah Kamu Yakin?",
             text: "Apakah Kamu Yakin Hapus Data ini?",
             icon: "warning",
-            buttons: {
-                cancel: {
-                    text: "Batal",
-                    value: null,
-                    visible: true,
-                    className: "btn btn-danger",
-                    closeModal: true
-                },
-                confirm: {
-                    text: "Hapus",
-                    value: true,
-                    visible: true,
-                    className: "btn btn-success",
-                    closeModal: false
-                }
-            },
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Hapus",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
             dangerMode: true,
         }).then((willDelete) => {
-            if (willDelete) {
+            if (willDelete.isConfirmed) {
                 $.ajax({
                     type: 'POST',
                     url: urls + data_id,
